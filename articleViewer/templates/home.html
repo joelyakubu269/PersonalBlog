@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY Personal Blog</title>
+</head>
+<body>
+   <h1> <p> Welcome to my blog where I share my       │
+│  thoughts, experiences, and ideas</p>
+</h1>
+    <h2>Articles</h2>
+    {{.range}}
+    <article>
+        <p>{{.Title}}</p>
+        <p>By {{.Author}} </p>
+        <p>{{.Summary}}</p>
+        <a href="/article?id={{ .ID }}">Read Article</a>
+    </article>
+    {{.end}}
+</body>
+</html>
