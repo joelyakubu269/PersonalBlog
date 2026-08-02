@@ -7,7 +7,7 @@ type ArticleData struct {
     Summary string  `json:"summary"`
     Content string `json:"content"`
 }
-articles := []Article{
+ var articles = []ArticleData{
     {
         ID:      1,
         Title:   "Learning Go",
