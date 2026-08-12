@@ -4,6 +4,7 @@ import (
 	"os"
 )
 
-func createAndStore() {
-
+func createAndStore(val ArticleData) {
+	id:= ArticleData.ID
+	file,err:=
 }
