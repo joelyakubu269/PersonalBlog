@@ -15,10 +15,15 @@ func createAndStore(val ArticleData) {
 		return
 	}
 	defer file.Close()
-	data,err= json.MarshalIndent(val,""," ")
+	data,err:= json.MarshalIndent(val,""," ")
 	if err!= nil {
 		fmt.Errorf("unable to marshall",err)
 		return
 	}
-	
+	err = os.WriteFile(file,data,0644)
+	if err!= nil {
+		fmt.Errorf("unable to write to file",err)
+		return
+	}
+
 }
