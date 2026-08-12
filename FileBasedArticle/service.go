@@ -1,3 +1,9 @@
 package main
 
-func createAndStore()
+import (
+	"os"
+)
+
+func createAndStore() {
+
+}
