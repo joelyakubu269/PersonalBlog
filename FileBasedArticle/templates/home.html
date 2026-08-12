@@ -4,20 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Personal Blog</title>
-    <h1><a href="/admin">Admin</a></h1>
 </head>
-<h1> Welcome to my blog where I share my
- thoughts, experiences, and ideas</h1>
 <body>
-    <h2>Articles</h2>
-    {{range .}}
-    <article>
-    <p>{{.Title}}</p>
-    <p>{{.Author}}</p>
-    <p>{{.Summary}}</p>
-    <a href="/article?={.ID}">Read Article</a>
-    </article>
-    {{end}}
-    <a href="/create">Add a Blog</a>
+    <header>
+        <a href="/admin">Admin</a>
+        <h1>Welcome to my blog where I share my thoughts, experiences, and ideas</h1>
+    </header>
+
+    <main>
+        <h2>Articles</h2>
+
+        {{ range . }}
+        <article>
+            <h3>{{ .Title }}</h3>
+            <p><strong>Author:</strong> {{ .Author }}</p>
+            <p>{{ .Summary }}</p>
+            <a href="/article?id={{ .ID }}">Read Article</a>
+        </article>
+        {{ else }}
+        <p>No articles found yet. Check back later!</p>
+        {{ end }}
+
+        <br>
+        <a href="/create">Add a Blog</a>
+    </main>
 </body>
 </html>
