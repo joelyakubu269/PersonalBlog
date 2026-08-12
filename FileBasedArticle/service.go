@@ -9,8 +9,8 @@ import (
 )
 
 func createAndStore(val ArticleData) error{
-	new := strconv.Itoa(val.ID)
-	file:="article"+ new + ".json"
+	id := (val.ID)
+	file:= fmt.Sprintf("article%d.json")
 	
 	
 	data,err:= json.MarshalIndent(val,""," ")
@@ -22,7 +22,7 @@ func createAndStore(val ArticleData) error{
 	err = os.WriteFile(file,data,0644)
 	if err!= nil {
 		
-		return fmt.Errorf("unable to write to file",err)
+		return fmt.Errorf("unable to write to file : %w",err)
 	}
 	return nil
 }
@@ -37,3 +37,4 @@ func deleteArticle(id int) error{
 	}
 	return nil
 }
+func 
