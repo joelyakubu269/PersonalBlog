@@ -7,10 +7,15 @@
 </head>
 <body>
     <form action="/admin/article/edit?={{.ID}}" method="POST">
-        <input type="text" name="Title" value="{{.Title}}">
-        <input type="text" name="Author" value="{{.Author}}">
-        <textarea name="Summary">{{.Summary}}</textarea>
-        <textarea name="Content" >{{.Content}}</textarea>
+        <label for="Title">Title</label>
+        <input type="text" name="Title" value="{{.Title}}" id="Title">
+        <label for="Author">Author</label>
+        <input type="text" name="Author" value="{{.Author}}" id="Author">
+        <label for="summary">Summary</label>
+<textarea id="summary" name="Summary">{{.Summary}}</textarea>
+
+<label for="content">Content</label>
+<textarea id="content" name="Content">{{.Content}}</textarea>
         <button type="submit">Save changes</button>
     </form>
 </body>
