@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"errors"
 )
 
 func createAndStore(val ArticleData) error{
@@ -25,13 +26,14 @@ func createAndStore(val ArticleData) error{
 	}
 	return nil
 }
-func delete(id int) error{
+func deleteArticle(id int) error{
 	file:= fmt.Sprintf("article%d.json",id)
 	err:= os.Remove(file)
 	if err!= nil {
-		if errors.Is(err,Os.ErrNotExist) {
+		if errors.Is(err,os.ErrNotExist) {
 			return fmt.Errorf("cannot delete %s: the file does not exist",file)
 		}
+		return fmt.Errorf("failed to delete file %s : %w",file,err)
 	}
-
+	return nil
 }
