@@ -8,6 +8,7 @@ import (
 
 	"errors"
 )
+	const articlesDir= "articles"
 
 func createAndStore(val ArticleData) error{
 	
