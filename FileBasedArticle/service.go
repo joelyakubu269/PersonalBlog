@@ -30,7 +30,7 @@ func delete(id int) error{
 	err:= os.Remove(file)
 	if err!= nil {
 		if errors.Is(err,Os.ErrNotExist) {
-			return fmt.Errorf()
+			return fmt.Errorf("cannot delete %s: the file does not exist",file)
 		}
 	}
 
