@@ -11,9 +11,9 @@
     <h2>Articles</h2>
     {{range .}}
     <article>
-    <p>{{Title}}</p>
-    <p>{{Author}}</p>
-    <p>{{Summary}}</p>
+    <p>{{.Title}}</p>
+    <p>{{.Author}}</p>
+    <p>{{.Summary}}</p>
     <a href="/article?={.ID}">Read Article</a>
     </article>
     {{end}}
