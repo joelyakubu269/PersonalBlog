@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"errors"
 )
@@ -11,14 +12,18 @@ import (
 func createAndStore(val ArticleData) error{
 	
 	file:= fmt.Sprintf("article%d.json",val.ID)
-	err:=
+	err:= os.Mkdir("articles",0755)
+	if err!= nil {
+		return fmt.Errorf("unable to create directory :%w" + err.Error(),err)
+	}
 	
 	data,err:= json.MarshalIndent(val,"","  ")
 	if err!= nil {
 	 
-	 return fmt.Errorf("unable to marshall",err)
+	 return fmt.Errorf("unable to marshall :%w",err)
 		
 	}
+	filepath:= filepath.Join(fi)
 	err = os.WriteFile(file,data,0644)
 	if err!= nil {
 		
