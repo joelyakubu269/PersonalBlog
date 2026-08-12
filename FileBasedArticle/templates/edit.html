@@ -6,8 +6,12 @@
     <title>Edit Article</title>
 </head>
 <body>
-    <form action="" method="POST">
-        <input type="text">
+    <form action="/admin/article/edit?={{.ID}}" method="POST">
+        <input type="text" name="Title" value="{{.Title}}">
+        <input type="text" name="Author" value="{{.Author}}">
+        <textarea name="Summary">{{.Summary}}</textarea>
+        <textarea name="Content" >{{.Content}}</textarea>
+        <button type="submit">Save changes</button>
     </form>
 </body>
 </html>
