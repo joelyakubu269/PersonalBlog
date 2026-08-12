@@ -4,16 +4,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"strconv"
+
 	"errors"
 )
 
 func createAndStore(val ArticleData) error{
-	id := (val.ID)
-	file:= fmt.Sprintf("article%d.json")
 	
+	file:= fmt.Sprintf("article%d.json",val.ID)
+	err:=
 	
-	data,err:= json.MarshalIndent(val,""," ")
+	data,err:= json.MarshalIndent(val,"","  ")
 	if err!= nil {
 	 
 	 return fmt.Errorf("unable to marshall",err)
