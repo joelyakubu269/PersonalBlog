@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"html/template"
 	"net/http"
 	"os"
+	"path/filepath"
 )
 func renderPage(w http.ResponseWriter, filename string, data interface{}) {
 	templ,err:= template.ParseFiles("templates/" +filename )
@@ -23,7 +25,7 @@ func homeHander(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	articlesDir:= "articles"
-	if err:= os.Mkdir(articlesDir,0755); err!= nil {
+	if err:= os.Mkdir(articlesDir,0755); err!= nil { // makes the directory if there are no files in it cause version control deletes empty files
 		http.Error(w,"error finding directory" + err.Error(),http.StatusInternalServerError)
 		return
 	}
@@ -32,5 +34,19 @@ func homeHander(w http.ResponseWriter, r *http.Request) {
 		http.Error(w,"error reading director" + err.Error(),http.StatusInternalServerError)
 		return
 	}
-	for _,entry:= range
+	var articles []ArticleData
+	for _,entry:= range entries {
+		if entry.IsDir() || filepath.Ext(entry.Name()) != ".json" { // Used to ignore other directories or non json files
+			continue
+		}
+		filepath:= filepath.Join(articlesDir,entry.Name())
+		content, err:= os.ReadFile(filepath)
+		if err!= nil {
+			continue // skip unreadable files
+		}
+		err= json.Unmarshal(content,&articles)
+		if err!= nil
+
+
+	}
 }
