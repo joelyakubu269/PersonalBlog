@@ -51,4 +51,5 @@ func homeHander(w http.ResponseWriter, r *http.Request) {
 		}
 
 	}
+	renderPage(w,"home.html",articles)
 }
