@@ -13,7 +13,7 @@ import (
 func createAndStore(val ArticleData) error{
 	
 	file:= fmt.Sprintf("article%d.json",val.ID)
-	err:= os.Mkdir("articles",0755)
+	err:= os.Mkdir( articlesDir,0755)
 	if err!= nil {
 		return fmt.Errorf("unable to create directory :%w" + err.Error(),err)
 	}
@@ -24,8 +24,8 @@ func createAndStore(val ArticleData) error{
 	 return fmt.Errorf("unable to marshall :%w",err)
 		
 	}
-	filepath:= filepath.Join(fi)
-	err = os.WriteFile(file,data,0644)
+	filepath:= filepath.Join(articlesDir,file)
+	err = os.WriteFile(filepath,data,0644)
 	if err!= nil {
 		
 		return fmt.Errorf("unable to write to file : %w",err)
@@ -34,7 +34,8 @@ func createAndStore(val ArticleData) error{
 }
 func deleteArticle(id int) error{
 	file:= fmt.Sprintf("article%d.json",id)
-	err:= os.Remove(file)
+	filepath:= filepath.Join(articlesDir,file)
+	err:= os.Remove(filepath)
 	if err!= nil {
 		if errors.Is(err,os.ErrNotExist) {
 			return fmt.Errorf("cannot delete %s: the file does not exist",file)
