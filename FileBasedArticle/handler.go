@@ -45,8 +45,10 @@ func homeHander(w http.ResponseWriter, r *http.Request) {
 			continue // skip unreadable files
 		}
 		err= json.Unmarshal(content,&articles)
-		if err!= nil
+		if err!= nil {
+			continue // skip corrupted json files 
 
+		}
 
 	}
 }
