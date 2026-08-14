@@ -83,3 +83,10 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+func admin(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		http.Error(w,"Status not allowed",http.StatusInternalServerError)
+		return
+	}
+	renderPage(w,"admin.html",nil)
+}
