@@ -90,3 +90,6 @@ func admin(w http.ResponseWriter, r *http.Request) {
 	}
 	renderPage(w,"admin.html",nil)
 }
+func delete(w http.ResponseWriter, r *http.Request){
+	
+}
