@@ -21,7 +21,7 @@ func renderPage(w http.ResponseWriter, filename string, data interface{}) {
 		return
 	}
 }
-func homeHander(w http.ResponseWriter, r *http.Request) {
+func homeHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w,"Method not allowed",http.StatusMethodNotAllowed)
 		return
