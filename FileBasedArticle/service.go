@@ -20,7 +20,7 @@ func readArticle(id string) (ArticleData,error){
 		return ArticleData{}, fmt.Errorf("unable to read directory: %w",err)
 	}
 	var article ArticleData
-	err= json.Unmarshal(data,article)
+	err= json.Unmarshal(data,&article)
 	if err!= nil {
 			return ArticleData{}, fmt.Errorf("error unmarshalling: %w",err)
 	}
