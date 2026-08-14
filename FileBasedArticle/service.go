@@ -20,8 +20,10 @@ func generateNextArticleID() (int,error){
 		if dir.IsDir() || strings.HasSuffix(dir.Name(),".json") {
 			continue
 		}
-		list:= strings.ContainsAny(dir,"0123456789")
+		filename:= dir.Name()
+		numberPart:= strings.TrimPrefix(filename,"article")
 		
+
 		counter++
 	}
 	counter++
