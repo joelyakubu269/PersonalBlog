@@ -12,6 +12,7 @@ import (
 )
 
 const articlesDir = "articles"
+func readArticle(id string)
 
 func generateNextArticleID() (int, error) {
 	dirs, err := os.ReadDir("articles")
