@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 )
 func renderPage(w http.ResponseWriter, filename string, data interface{}) {
 	templ,err:= template.ParseFiles("templates/" +filename )
@@ -58,7 +59,27 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w,"method not allowed",http.StatusInternalServerError)
 		return
 	}
-	id:= r.FormValue("ID")
+	id:= r.FormValue("ID") // take note of we assign id and avoid repition and in aspects of deletion
+	newId,err := strconv.Atoi(id)
+	if err!= nil {
+		http.Error(w,"error converting id",http.StatusBadRequest)
+		return
+	}
 	title:= r.FormValue("Title")
-	author:= r.
+	author:= r.FormValue("Author")
+	summary:= r.FormValue("Summary")
+	content:= r.FormValue("Content")
+	val:= ArticleData{
+		ID: newId,
+		Title: title,
+		Author: author,
+		Summary: summary,
+		Content: content,
+
+	}
+	err = createAndStore(val)
+	if err!= nil {
+		http.Error(w,"unable to create article",http.StatusInternalServerError)
+		return
+	}
 }
