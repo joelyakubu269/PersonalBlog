@@ -26,14 +26,14 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 	}
 	idstr := r.URL.Query().Get("id")
-	id,err:= idConverter(idstr)
+	
+	article,err:= readArticle(idstr)
 	if err!= nil {
-		http.Error(w,"bad request" + err.Error(),http.StatusBadRequest)
+		http.Error(w,err.Error(),http.StatusInternalServerError)
 		return
 	}
-	
 
-	
+	renderPage(w,"article.html",article)
 
 	
 }
