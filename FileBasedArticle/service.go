@@ -20,8 +20,11 @@ func generateNextArticleID() (int,error){
 		if dir.IsDir() || strings.HasSuffix(dir.Name(),".json") {
 			continue
 		}
+		list:= strings.ContainsAny(dir,"0123456789")
+		
 		counter++
 	}
+	counter++
 	return counter, nil
 }
 func saveArticle(val ArticleData) error{

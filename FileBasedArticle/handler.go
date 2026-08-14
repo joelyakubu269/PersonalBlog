@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strconv"
+	
 )
 
 func renderPage(w http.ResponseWriter, filename string, data interface{}) {
