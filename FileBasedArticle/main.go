@@ -4,4 +4,6 @@ import(
 )
 func main()  {
 	http.HandleFunc("/",homeHandler)
+	http.HandleFunc("/admin",admin)
+	http.HandleFunc("/admin")
 }
