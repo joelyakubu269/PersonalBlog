@@ -31,6 +31,9 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w,"bad request" + err.Error(),http.StatusBadRequest)
 		return
 	}
+	file:= Sprintf("article%s.json",id)
+	filepath:= filepath.Join("articles",file)
+	
 	
 
 	
