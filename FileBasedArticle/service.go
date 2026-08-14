@@ -31,10 +31,13 @@ func generateNextArticleID() (int, error) {
 	dirs, err := os.ReadDir("articles")
 	highestId := 0
 	if err != nil {
+		  if errors.Is(err, os.ErrNotExist) {
+            return 1, nil
+        }
 		return 0, fmt.Errorf("unable to read directory: %w", err)
 	}
 	for _, dir := range dirs {
-		if dir.IsDir() || strings.HasSuffix(dir.Name(), ".json") {
+		if dir.IsDir() || !strings.HasSuffix(dir.Name(), ".json") {
 			continue
 		}
 		filename := dir.Name()
