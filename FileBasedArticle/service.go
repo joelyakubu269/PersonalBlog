@@ -15,7 +15,7 @@ const articlesDir = "articles"
 
 func generateNextArticleID() (int, error) {
 	dirs, err := os.ReadDir("articles")
-	counter := 0
+	highestId := 0
 	if err != nil {
 		return 0, fmt.Errorf("unable to read directory: %w", err)
 	}
@@ -30,13 +30,14 @@ func generateNextArticleID() (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		if id > counter {
+		if id > highestId {
+			highestId= id
 		}
 
-		counter++
+		
 	}
-	counter++
-	return counter, nil
+	highestId++
+	return highestId, nil
 }
 func saveArticle(val ArticleData) error {
 
