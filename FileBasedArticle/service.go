@@ -9,11 +9,13 @@ import (
 	"errors"
 )
 	const articlesDir= "articles"
-
-func createAndStore(val ArticleData) error{
+func generateNextArticleID() (int,error){
+	
+}
+func saveArticle(val ArticleData) error{
 	
 	file:= fmt.Sprintf("article%d.json",val.ID)
-	 err:= os.Mkdir( articlesDir,0755) // version control removes empty files, make dir is a check that creates it and prevents it from failing
+	 err:= os.MkdirAll( articlesDir,0755) // version control removes empty files, make dir is a check that creates it and prevents it from failing
 	if err!= nil {
 		return fmt.Errorf("unable to create directory :%w" + err.Error(),err)
 	}

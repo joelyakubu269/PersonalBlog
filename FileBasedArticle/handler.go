@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"strconv"
 )
+
 func renderPage(w http.ResponseWriter, filename string, data interface{}) {
 	templ,err:= template.ParseFiles("templates/" +filename )
 	if err!= nil {
@@ -77,7 +78,7 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 		Content: content,
 
 	}
-	err = createAndStore(val)
+	err = saveArticle(val)
 	if err!= nil {
 		http.Error(w,"unable to create article",http.StatusInternalServerError)
 		return
@@ -91,5 +92,5 @@ func admin(w http.ResponseWriter, r *http.Request) {
 	renderPage(w,"admin.html",nil)
 }
 func delete(w http.ResponseWriter, r *http.Request){
-	
+
 }

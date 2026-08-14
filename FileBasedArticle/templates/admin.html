@@ -6,15 +6,27 @@
     <title>Admin page</title>
 </head>
 <body>
+
     {{range .}}
     <article>
-    <p>{{.Title}}</p>
-    <p>{{.Author}}</p>
-    <p>{{.Summary}}</p>
-    <a href="/article?={.ID}">Read Article</a>
-    <a href="/admin/article/edit?={.ID}">Edit</a>
-    <a href="/admin/article?/delete={.ID}">Delete</a>
+        <p>{{.Title}}</p>
+        <p>{{.Author}}</p>
+        <p>{{.Summary}}</p>
+
+        <!-- Read -->
+        <a href="/article?id={{.ID}}">Read Article</a>
+
+        <!-- Edit -->
+        <a href="/admin/article/edit?id={{.ID}}">Edit</a>
+
+        <!-- Delete -->
+        <form action="/admin/article/delete?id={{.ID}}" method="POST"
+              onsubmit="return confirm('Are you sure you want to delete this article?')">
+            <button type="submit">Delete</button>
+        </form>
+
     </article>
-    
+    {{end}}
+
 </body>
 </html>
