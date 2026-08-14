@@ -12,7 +12,7 @@ import (
 	const articlesDir= "articles"
 func generateNextArticleID() (int,error){
 	dirs,err:= os.ReadDir("articles")
-	id:= 0
+	counter:= 0
 	if err!= nil {
 		return 0, fmt.Errorf("unable to read directory: %w",err)
 	}
@@ -20,8 +20,9 @@ func generateNextArticleID() (int,error){
 		if dir.IsDir() || strings.HasSuffix(dir.Name(),".json") {
 			continue
 		}
-		i
+		counter++
 	}
+	return counter, nil
 }
 func saveArticle(val ArticleData) error{
 	

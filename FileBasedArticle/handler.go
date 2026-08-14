@@ -60,18 +60,19 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w,"method not allowed",http.StatusInternalServerError)
 		return
 	}
-	id:= r.FormValue("ID") // take note of we assign id and avoid repition and in aspects of deletion
-	newId,err := strconv.Atoi(id)
+	
+	id,err:= generateNextArticleID()
 	if err!= nil {
-		http.Error(w,"error converting id",http.StatusBadRequest)
+		http.Error(w,"error generating id",http.StatusInternalServerError)
 		return
 	}
+	
 	title:= r.FormValue("Title")
 	author:= r.FormValue("Author")
 	summary:= r.FormValue("Summary")
 	content:= r.FormValue("Content")
 	val:= ArticleData{
-		ID: newId,
+		ID: id,
 		Title: title,
 		Author: author,
 		Summary: summary,
