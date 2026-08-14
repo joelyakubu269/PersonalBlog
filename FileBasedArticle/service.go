@@ -5,12 +5,23 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"errors"
 )
 	const articlesDir= "articles"
 func generateNextArticleID() (int,error){
-	
+	dirs,err:= os.ReadDir("articles")
+	id:= 0
+	if err!= nil {
+		return 0, fmt.Errorf("unable to read directory: %w",err)
+	}
+	for _,dir:= range dirs {
+		if dir.IsDir() || strings.HasSuffix(dir.Name(),".json") {
+			continue
+		}
+		i
+	}
 }
 func saveArticle(val ArticleData) error{
 	
