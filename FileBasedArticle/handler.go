@@ -26,23 +26,14 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 	}
 	idstr := r.URL.Query().Get("id")
-	Id, err := strconv.Atoi(idstr)
-	if err != nil {
-		fmt.Fprint(w, "bad request", http.StatusBadRequest)
+	id,err:= idConverter(idstr)
+	if err!= nil {
+		http.Error(w,"bad request" + err.Error(),http.StatusBadRequest)
 		return
 	}
-	templ, err := template.ParseFiles("templates/article.html")
-	if err != nil {
-		fmt.Fprint(w, "internal server error", http.StatusInternalServerError)
-		return
-	}
+	
 
-	for _, article := range articles {
-		if article.ID == Id {
-			templ.Execute(w, article)
-			return
-		}
-	}
+	
 }
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
