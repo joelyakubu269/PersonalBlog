@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+
 	"html/template"
 	"net/http"
 	"os"
@@ -71,34 +71,38 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 	renderPage(w, "home.html", articles)
 }
 func createHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		http.Error(w, "method not allowed", http.StatusInternalServerError)
-		return
-	}
+	switch r.Method {
 
-	id, err := generateNextArticleID()
-	if err != nil {
-		http.Error(w, "error generating id", http.StatusInternalServerError)
-		return
-	}
+	case http.MethodGet:
+		// Show the form
+		renderPage(w, "createArticle.html", nil)
 
-	title := r.FormValue("Title")
-	author := r.FormValue("Author")
-	summary := r.FormValue("Summary")
-	content := r.FormValue("Content")
-	val := ArticleData{
-		ID:      id,
-		Title:   title,
-		Author:  author,
-		Summary: summary,
-		Content: content,
+	case http.MethodPost:
+
+		id, err := generateNextArticleID()
+		if err != nil {
+			http.Error(w, "error generating id", http.StatusInternalServerError)
+			return
+		}
+
+		title := r.FormValue("Title")
+		author := r.FormValue("Author")
+		summary := r.FormValue("Summary")
+		content := r.FormValue("Content")
+		val := ArticleData{
+			ID:      id,
+			Title:   title,
+			Author:  author,
+			Summary: summary,
+			Content: content,
+		}
+		err = saveArticle(val)
+		if err != nil {
+			http.Error(w, "unable to create article", http.StatusInternalServerError)
+			return
+		}
 	}
-	err = saveArticle(val)
-	if err != nil {
-		http.Error(w, "unable to create article", http.StatusInternalServerError)
-		return
-	}
-	fmt.Println(err)
+	http.Redirect(w, r, "/admin", http.StatusSeeOther)
 }
 func admin(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
@@ -123,6 +127,7 @@ func delete(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "unable to delete file", http.StatusInternalServerError)
 		return
 	}
+	http.Redirect(w, r, "/admin", http.StatusSeeOther)
 
 }
 func editHandler(w http.ResponseWriter, r *http.Request) {
