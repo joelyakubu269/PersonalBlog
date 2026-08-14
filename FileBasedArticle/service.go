@@ -12,7 +12,20 @@ import (
 )
 
 const articlesDir = "articles"
-func readArticle(id string)
+func readArticle(id string) (ArticleData,error){
+	file:= fmt.Sprintf("article%s.json",id)
+	filepath:= filepath.Join("articles",file)
+	data,err:= os.ReadFile(filepath)
+	if err!= nil {
+		return ArticleData{}, fmt.Errorf("unable to read directory: %w",err)
+	}
+	var article ArticleData
+	err= json.Unmarshal(data,article)
+	if err!= nil {
+			return ArticleData{}, fmt.Errorf("error unmarshalling: %w",err)
+	}
+	return article, nil
+}
 
 func generateNextArticleID() (int, error) {
 	dirs, err := os.ReadDir("articles")
