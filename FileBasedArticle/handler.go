@@ -104,4 +104,29 @@ func delete(w http.ResponseWriter, r *http.Request){
 		http.Error(w,"unable to delete file",http.StatusInternalServerError)
 		return
 	}
+
+}
+func editHandler(w http.ResponseWriter, r *http.Request){
+	if r.Method!= "POST" {
+		http.Error(w,"method not allowed",http.StatusMethodNotAllowed)
+		return
+	}
+	
+	title:= r.FormValue("Title")
+	author:= r.FormValue("Author")
+	summary:= r.FormValue("Summary")
+	content:= r.FormValue("Content")
+	val:= ArticleData{
+		ID: id,
+		Title: title,
+		Author: author,
+		Summary: summary,
+		Content: content,
+
+	}
+	err := saveArticle(val)
+	if err!= nil {
+		http.Error(w,"unable to create article",http.StatusInternalServerError)
+		return
+	}
 }
