@@ -111,20 +111,25 @@ func editHandler(w http.ResponseWriter, r *http.Request){
 		http.Error(w,"method not allowed",http.StatusMethodNotAllowed)
 		return
 	}
-	
+	id:= r.URL.Query().Get("ID")
+	idn,err:= idConverter(id)
+	if err!= nil {
+		http.Error(w,"status bad request",http.StatusBadRequest)
+		return
+	}
 	title:= r.FormValue("Title")
 	author:= r.FormValue("Author")
 	summary:= r.FormValue("Summary")
 	content:= r.FormValue("Content")
 	val:= ArticleData{
-		ID: id,
+		ID: idn,
 		Title: title,
 		Author: author,
 		Summary: summary,
 		Content: content,
 
 	}
-	err := saveArticle(val)
+	err = saveArticle(val)
 	if err!= nil {
 		http.Error(w,"unable to create article",http.StatusInternalServerError)
 		return
