@@ -93,6 +93,10 @@ func admin(w http.ResponseWriter, r *http.Request) {
 	renderPage(w,"admin.html",nil)
 }
 func delete(w http.ResponseWriter, r *http.Request){
+	if r.Method!= "POST" {
+		http.Error(w,"method not allowed",http.StatusMethodNotAllowed)
+		return
+	}
 	id:= r.URL.Query().Get("ID")
 	val,err:= idConverter(id)
 	if err!= nil {
