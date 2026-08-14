@@ -53,3 +53,12 @@ func homeHander(w http.ResponseWriter, r *http.Request) {
 	}
 	renderPage(w,"home.html",articles)
 }
+func createHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method!= "POST" {
+		http.Error(w,"method not allowed",http.StatusInternalServerError)
+		return
+	}
+	id:= r.FormValue("ID")
+	title:= r.FormValue("Title")
+	author:= r.
+}
