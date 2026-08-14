@@ -73,3 +73,10 @@ func deleteArticle(id int) error {
 	}
 	return nil
 }
+func idConverter(val string) (int,error){
+id,err:= strconv.Atoi(val)
+if err!= nil {
+	return 0, err
+}
+return id, nil
+}

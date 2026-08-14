@@ -93,5 +93,15 @@ func admin(w http.ResponseWriter, r *http.Request) {
 	renderPage(w,"admin.html",nil)
 }
 func delete(w http.ResponseWriter, r *http.Request){
-
+	id:= r.URL.Query().Get("ID")
+	val,err:= idConverter(id)
+	if err!= nil {
+		http.Error(w,"status bad request",http.StatusBadRequest)
+		return
+	}
+	err= deleteArticle(val)
+	if err!= nil {
+		http.Error(w,"unable to delete file",http.StatusInternalServerError)
+		return
+	}
 }
