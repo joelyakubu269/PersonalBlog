@@ -9,8 +9,8 @@ func main()  {
 	http.HandleFunc("/admin",admin)
 	http.HandleFunc("/article",ArticleHandler)
 	http.HandleFunc("/create",createHandler)
-	http.HandleFunc("/edit",editHandler)
-	http.HandleFunc("/delete",delete)
+	http.HandleFunc("/admin/article/edit",editHandler)
+	http.HandleFunc("/admin/article/delete",delete)
 	http.ListenAndServe(":8080", nil)
 	fmt.Println("server is up and running")
 }

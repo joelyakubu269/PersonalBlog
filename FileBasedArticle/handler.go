@@ -145,11 +145,22 @@ func delete(w http.ResponseWriter, r *http.Request) {
 
 }
 func editHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
-		fmt.Println("there is an err in edit")
-		return
-	}
+	switch r.Method {
+
+	case http.MethodGet:
+		// Show the form
+		        id := r.URL.Query().Get("id")
+
+        article, err := readArticle(id)
+        if err != nil {
+            http.Error(w, "unable to find article", http.StatusNotFound)
+            return
+        }
+
+		renderPage(w, "createArticle.html", article)
+
+	case http.MethodPost:
+		
 	id := r.URL.Query().Get("ID")
 	idn, err := idConverter(id)
 	if err != nil {
@@ -172,4 +183,5 @@ func editHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "unable to create article", http.StatusInternalServerError)
 		return
 	}
+}
 }
