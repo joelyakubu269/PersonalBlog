@@ -123,7 +123,7 @@ func delete(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
-	id := r.URL.Query().Get("ID")
+	id := r.URL.Query().Get("id")
 	val, err := idConverter(id)
 	if err != nil {
 		http.Error(w, "status bad request", http.StatusBadRequest)
