@@ -36,10 +36,11 @@ func getArticles() ([]ArticleData, error) {
 			continue
 		}
 		var articles []ArticleData
-		data,err := os.ReadFile(entry.Name()) 
+		data,err := os.ReadFile(filepath.Join(articlesDir,entry.Name())) 
 		if err!= nil {
 			continue // maybe a corrupted file
 		}
+		var article ArticleData
 	}
 }
 
