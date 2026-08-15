@@ -26,6 +26,9 @@ func readArticle(id string) (ArticleData,error){
 	}
 	return article, nil
 }
+func getArticles([]ArticleData, error) {
+	entries,err:= os.ReadDir()
+}
 
 func generateNextArticleID() (int, error) {
 	dirs, err := os.ReadDir("articles")
