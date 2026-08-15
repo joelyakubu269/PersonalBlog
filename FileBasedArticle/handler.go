@@ -150,6 +150,8 @@ func editHandler(w http.ResponseWriter, r *http.Request) {
 	case http.MethodGet:
 		// Show the form
 		        id := r.URL.Query().Get("id")
+				 fmt.Println("ID:", id)
+
 
         article, err := readArticle(id)
         if err != nil {
@@ -157,11 +159,12 @@ func editHandler(w http.ResponseWriter, r *http.Request) {
             return
         }
 
-		renderPage(w, "createArticle.html", article)
+		renderPage(w, "edit.html", article)
+		fmt.Println(err)
 
 	case http.MethodPost:
 		
-	id := r.URL.Query().Get("ID")
+	id := r.URL.Query().Get("id")
 	idn, err := idConverter(id)
 	if err != nil {
 		http.Error(w, "status bad request", http.StatusBadRequest)
