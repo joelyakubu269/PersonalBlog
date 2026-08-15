@@ -31,17 +31,25 @@ func getArticles() ([]ArticleData, error) {
 	if err!= nil {
 		return nil,fmt.Errorf("unable to read directory: %w",err)
 	}
+	var articles []ArticleData
 	for _,entry:= range entries {
 		if entry.IsDir() || filepath.Ext(entry.Name()) != ".json" {
 			continue
 		}
-		var articles []ArticleData
+		
 		data,err := os.ReadFile(filepath.Join(articlesDir,entry.Name())) 
 		if err!= nil {
 			continue // maybe a corrupted file
 		}
 		var article ArticleData
+		err= json.Unmarshal(data,&article)
+		if err!= nil {
+			            return nil, fmt.Errorf("unable to unmarshal %s: %w", entry.Name(), err)
+
+		}
+		articles = append(articles, article)
 	}
+	return articles, nil
 }
 
 func generateNextArticleID() (int, error) {
