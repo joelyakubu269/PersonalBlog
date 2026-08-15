@@ -32,7 +32,14 @@ func getArticles() ([]ArticleData, error) {
 		return nil,fmt.Errorf("unable to read directory: %w",err)
 	}
 	for _,entry:= range entries {
-		if entry.IsDir() || filepath.Ext()
+		if entry.IsDir() || filepath.Ext(entry.Name()) != ".json" {
+			continue
+		}
+		var articles []ArticleData
+		data,err := os.ReadFile(entry.Name()) 
+		if err!= nil {
+			continue // maybe a corrupted file
+		}
 	}
 }
 
