@@ -58,14 +58,16 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		filepath := filepath.Join(articlesDir, entry.Name())
 		content, err := os.ReadFile(filepath)
+		var article ArticleData
 		if err != nil {
 			continue // skip unreadable files
 		}
-		err = json.Unmarshal(content, &articles)
+		err = json.Unmarshal(content, &article)
 		if err != nil {
 			continue // skip corrupted json files
 
 		}
+		articles = append(articles, article)
 
 	}
 	renderPage(w, "home.html", articles)
@@ -106,10 +108,15 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 }
 func admin(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
-		http.Error(w, "Status not allowed", http.StatusInternalServerError)
+		http.Error(w, "Status not allowed", http.StatusMethodNotAllowed)
 		return
 	}
-	renderPage(w, "admin.html", nil)
+	articles, err := getArticles()
+	if err != nil {
+		http.Error(w, "unable to get articles", http.StatusInternalServerError)
+		return
+	}
+	renderPage(w, "admin.html", articles)
 }
 func delete(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
