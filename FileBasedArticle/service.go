@@ -26,8 +26,14 @@ func readArticle(id string) (ArticleData,error){
 	}
 	return article, nil
 }
-func getArticles([]ArticleData, error) {
-	entries,err:= os.ReadDir()
+func getArticles() ([]ArticleData, error) {
+	entries,err:= os.ReadDir(articlesDir)
+	if err!= nil {
+		return nil,fmt.Errorf("unable to read directory: %w",err)
+	}
+	for _,entry:= range entries {
+		if entry.IsDir() || filepath.Ext()
+	}
 }
 
 func generateNextArticleID() (int, error) {
