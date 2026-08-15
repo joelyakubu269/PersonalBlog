@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"html/template"
 	"net/http"
@@ -24,6 +25,8 @@ func renderPage(w http.ResponseWriter, filename string, data interface{}) {
 func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		fmt.Println("there is an err in article")
+		return
 	}
 	idstr := r.URL.Query().Get("id")
 
@@ -39,6 +42,7 @@ func ArticleHandler(w http.ResponseWriter, r *http.Request) {
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		fmt.Println("there is an err in home")
 		return
 	}
 	articlesDir := "articles"
@@ -109,6 +113,7 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 func admin(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		http.Error(w, "Status not allowed", http.StatusMethodNotAllowed)
+		fmt.Println("there is an err in admin")
 		return
 	}
 	articles, err := getArticles()
@@ -121,9 +126,11 @@ func admin(w http.ResponseWriter, r *http.Request) {
 func delete(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		fmt.Println("there is an err in delete")
 		return
 	}
 	id := r.URL.Query().Get("id")
+	fmt.Println("ID:", id)
 	val, err := idConverter(id)
 	if err != nil {
 		http.Error(w, "status bad request", http.StatusBadRequest)
@@ -140,6 +147,7 @@ func delete(w http.ResponseWriter, r *http.Request) {
 func editHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		fmt.Println("there is an err in edit")
 		return
 	}
 	id := r.URL.Query().Get("ID")
