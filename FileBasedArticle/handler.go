@@ -186,5 +186,7 @@ func editHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "unable to create article", http.StatusInternalServerError)
 		return
 	}
+	http.Redirect(w,r,"/admin",http.StatusSeeOther)
+	return
 }
 }

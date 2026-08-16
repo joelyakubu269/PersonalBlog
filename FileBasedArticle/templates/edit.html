@@ -6,7 +6,7 @@
     <title>Edit Article</title>
 </head>
 <body>
-    <form action="/admin/article/edit?={{.ID}}" method="POST">
+    <form action="/admin/article/edit?id={{.ID}}" method="POST">
         <label for="Title">Title</label>
         <input type="text" name="Title" value="{{.Title}}" id="Title">
         <label for="Author">Author</label>
